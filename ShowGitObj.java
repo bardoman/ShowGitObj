@@ -62,7 +62,7 @@ public class ShowGitObj {
             }
             String sha=sub+node.getName();
             System.out.println("Sha="+sha);
-            System.out.println("Type:");
+            System.out.print("Type:");
             doExec(sha, "t");
             System.out.println("Content:");
             doExec(sha, "p");
