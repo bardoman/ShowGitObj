@@ -10,6 +10,7 @@ public class ShowGitObj {
 
     public static void main(String args[]) {
         try {
+             System.out.println("******************Git Object dump*******************");
             File file= new File("./.git/objects/");
             climbDirTree(file);
         } catch(Exception e) {
@@ -61,8 +62,11 @@ public class ShowGitObj {
             }
             String sha=sub+node.getName();
             System.out.println("Sha="+sha);
+            System.out.println("Type:");
             doExec(sha, "t");
+            System.out.println("Content:");
             doExec(sha, "p");
+            System.out.println("*****************************************************");
         }
     }
 }
