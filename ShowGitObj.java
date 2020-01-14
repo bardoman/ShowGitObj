@@ -5,6 +5,8 @@ import java.util.*;
 import java.nio.file.FileVisitResult.*;
 import java.nio.file.*;
 import java.nio.file.attribute.*;
+import java.util.stream.*;
+
 
 public class ShowGitObj {
 
@@ -13,6 +15,9 @@ public class ShowGitObj {
              System.out.println("******************Git Object dump*******************");
             File file= new File("./.git/objects/");
             climbDirTree(file);
+
+             System.out.println("******************Git Refs dump*******************");
+            dumpRefs(new File("./.git/refs/heads"));
         } catch(Exception e) {
             e.printStackTrace();
             System.exit(-1);
@@ -68,6 +73,26 @@ public class ShowGitObj {
             doExec(sha, "p");
             System.out.println("*****************************************************");
         }
+    }
+
+    public static void dumpRefs(File node)throws Exception
+    {
+          if(node.isDirectory()) {
+            String[] subNote = node.list();
+            for(String filename : subNote) {
+                dumpRefs(new File(node, filename));
+            }
+        } else {
+           
+            String name=node.getName();
+            System.out.println("Refname="+name);
+
+            Stream<String> linesStream = Files.lines(node.toPath());
+            linesStream.forEach(line -> {
+                System.out.println(line);
+            });
+        }
+
     }
 }
 
