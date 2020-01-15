@@ -1,0 +1,1 @@
+ java -cp C:\Utils\Git\ShowGitObj\ShowGitObj.jar ShowGitObj
