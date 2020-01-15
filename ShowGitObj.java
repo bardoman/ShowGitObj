@@ -12,11 +12,11 @@ public class ShowGitObj {
 
     public static void main(String args[]) {
         try {
-             System.out.println("******************Git Object dump*******************");
+            System.out.println("******************Git Object dump*******************");
             File file= new File("./.git/objects/");
             climbDirTree(file);
 
-             System.out.println("******************Git Refs dump*******************");
+            System.out.println("******************Git Refs dump*******************");
             dumpRefs(new File("./.git/refs/heads"));
         } catch(Exception e) {
             e.printStackTrace();
@@ -24,9 +24,10 @@ public class ShowGitObj {
         }
     }
 
-    static void doExec(String str, String option)throws Exception
+    static String doExec(String str, String option)throws Exception
     {
         String s;
+        String ret="";
         String CmdStr="git cat-file -"+option+ " "+str;
 
         //    System.out.println("CMD=>"+CmdStr);
@@ -40,13 +41,16 @@ public class ShowGitObj {
                                                      InputStreamReader(p.getErrorStream()));       
         while((s = stdInput.readLine()) != null) {
             //  System.out.println("STDOUT=>\n");
-            System.out.println(s);
+            System.out.println(s); 
+            ret=s;
         }       
         while((s = stdError.readLine()) != null) {
             System.out.println("STDERR=>\n");
             System.out.println(s);
+
         } 
 
+        return ret;
     }
 
     public static void climbDirTree(File node)throws Exception
@@ -68,29 +72,31 @@ public class ShowGitObj {
             String sha=sub+node.getName();
             System.out.println("Sha="+sha);
             System.out.print("Type:");
-            doExec(sha, "t");
-            System.out.println("Content:");
-            doExec(sha, "p");
+            String type = doExec(sha, "t");
+            if(!type.equals("blob")) {
+                System.out.println("Content:");
+                doExec(sha, "p"); 
+            }
             System.out.println("*****************************************************");
         }
     }
 
     public static void dumpRefs(File node)throws Exception
     {
-          if(node.isDirectory()) {
+        if(node.isDirectory()) {
             String[] subNote = node.list();
             for(String filename : subNote) {
                 dumpRefs(new File(node, filename));
             }
         } else {
-           
+
             String name=node.getName();
             System.out.println("Refname="+name);
 
             Stream<String> linesStream = Files.lines(node.toPath());
             linesStream.forEach(line -> {
-                System.out.println(line);
-            });
+                                    System.out.println(line);
+                                });
         }
 
     }
