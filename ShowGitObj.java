@@ -16,8 +16,12 @@ public class ShowGitObj {
             File file= new File("./.git/objects/");
             climbDirTree(file);
 
-            System.out.println("******************Git Refs dump*******************");
+            System.out.println("******************Heads Refs dump*******************");
             dumpRefs(new File("./.git/refs/heads"));
+                        System.out.println("******************remotes Refs dump*******************");
+            dumpRefs(new File("./.git/refs/remotes"));
+                        System.out.println("******************tags Refs dump*******************");
+            dumpRefs(new File("./.git/refs/tags"));
         } catch(Exception e) {
             e.printStackTrace();
             System.exit(-1);
