@@ -11,17 +11,24 @@ import java.util.stream.*;
 public class ShowGitObj {
 
     public static void main(String args[]) {
-        try {
+        String baseDir="."+File.separator+".git"+File.separator;
+        String refs=baseDir+"refs"+File.separator;
+        String objects=baseDir+"objects";
+        String heads=refs+"heads";
+        String remotes=refs+"remotes";
+        String tags=refs+"tags";
+
+            try {
             System.out.println("******************Git Object dump*******************");
-            File file= new File("./.git/objects/");
+            File file= new File(objects);
             climbDirTree(file);
 
             System.out.println("******************Heads Refs dump*******************");
-            dumpRefs(new File("./.git/refs/heads"));
+            dumpRefs(new File(heads));
                         System.out.println("******************remotes Refs dump*******************");
-            dumpRefs(new File("./.git/refs/remotes"));
+            dumpRefs(new File(remotes));
                         System.out.println("******************tags Refs dump*******************");
-            dumpRefs(new File("./.git/refs/tags"));
+            dumpRefs(new File(tags));
         } catch(Exception e) {
             e.printStackTrace();
             System.exit(-1);
