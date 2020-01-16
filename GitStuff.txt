@@ -113,5 +113,5 @@ The point here is that the output.txt will contain all the files for the branchN
 These Sha1 values can be compared with the versions in the clients "parlist.query" file to determine if they match.
 
 ***any subdirectories will show up as tree objects in the list instead of blob.
-Each of them can be traversed by using their Sha1 values to perform steps 2 - 4
+Each of them can be traversed by using their Sha1 values to perform steps 3 - 4
 *******************************************
