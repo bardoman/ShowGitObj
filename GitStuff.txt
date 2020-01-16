@@ -86,31 +86,31 @@ got tag    //show all tags
 git show-branch -a         //show tree format
 
 *************************************************
-Git trick to compare branch Sha1 values to zBuild client partlist.query version value=>
-
+Git trick to compare branch Chksum values to zBuild client partlist.query version values=>
+*(sha1=chksum)
 Perform the following:
 
 1.) Git show-branch --sha1-name <branchName>
 This returns=>
-[<sha1_num>] <commit message>
+[<branch_chksum>] <commit message>
 
-2.) Git cat-file -p <sha1_num>
+2.) Git cat-file -p <branch_chksum>
 This returns a git commit object.
 The first line will be in this format=>
-tree <sha1_num>
+tree <tree_chksum>
 
-3.) Git cat-file -p <sha1_num> >output.txt
+3.) Git cat-file -p <tree_chksum> >output.txt
 This returns a git tree object.
 The general format will look like this (I don't know what 100644 means)=>
-100644 blob <Sha1Value1> <partName1>
-100644 blob <Sha1Value2><partName2>
-100644 blob <Sha1Value3><partName3>
+100644 blob <Chksum1> <partName1>
+100644 blob <Chksum2> <partName2>
+100644 blob <Chksum3> <partName3>
 ...
 
 4. Attach the output.txt to the issue.
 
-The point here is that the output.txt will contain all the files for the branchName listed with their Sha1 values.
-These Sha1 values can be compared with the versions in the clients "parlist.query" file to determine if they match.
+The point here is that the output.txt will contain all the files for the branchName listed with their Chksum values.
+These Chksum values can be compared with the versions in the clients "parlist.query" file to determine if they match.
 
 ***any subdirectories will show up as tree objects in the list instead of blob.
 Each of them can be traversed by using their Sha1 values to perform steps 3 - 4
