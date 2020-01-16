@@ -1,0 +1,117 @@
+
+https://github.ibm.com/beifler/BERX.git
+
+git remote add origin https://beifler:747c6356c4171be7a0518639f6f4f8676668fc56@github.ibm.com/beifler/BERX.git
+ git push origin master      //push branch to remote
+ git remote rm origin          //remove a remote URL 
+
+
+git remote add origin https://beifler:747c6356c4171be7a0518639f6f4f8676668fc56@github.ibm.com/beifler/BERX.git
+
+git remote add origin https://beifler:747c6356c4171be7a0518639f6f4f8676668fc56@github.ibm.com:capdill/zbuildtest.git
+
+https://github.ibm.com:capdill/zbuildtest.git
+
+git clone https://github.ibm.com:capdill/zbuildtest.git
+
+git@github.ibm.com/beifler/BERX.git
+
+git mergetool
+
+ssh key=2a:13:cb:84:4f:91:60:63:23:7d:39:ac:72:1d:1b:b0
+
+git config user.email "bruceeifler@gmail.com"  //sets local user for project
+
+***git hash-object -w test.txt    //Retrieves the SHA of the part (Check that against the version in the full driver status)
+
+***git cat-file -p 0a49e2a34f694aeac7289d0f2f174d6f0d927c07 >test.out.txt     //***the first two chars of the hash are the dir name
+
+get log 
+
+git rev-list --all
+
+git rev-list --all  --objects
+
+git rm <filename>   //delete from repo
+
+git show 7e55ad9882533945c14ed71643a7f12333eccb7e //cats the obj
+
+git show-branch
+
+git branch -d branch1   //del branch
+
+git branch branch1    //mak branch
+
+git branch -b branch1  //mak branch and checkout
+
+git checkout master  
+
+git count-objects
+
+git add <fileName>
+
+git commit -m "message"
+
+git status
+
+git log
+
+git checkout <branch>
+
+git pull origin master  //pull remote master branch
+
+git push origin --delete b4  //delete remote branch
+
+git branch -d b4                  //delete local branch
+
+git branch -a             //shows both local and remote branches
+
+git rm <origName> <newName>      //renames and stages
+
+git diff <branch1> <branch2>     //shows the diff
+
+git remote show origin       //shows remote
+
+git tag 12345     //mak it
+git tag -d 12345  //nuke it
+git push <repo-name> <tag-name>   //push tag
+git push --tags <repo-name>       //push all tags
+git push --delete origin tagName   //nuke remote tag
+
+git ls-remote --tags ./.       //List refs in remote repository
+
+git tag -a gosh -m "oh my gosh"   //make tag
+git show gosh   //show it
+got tag    //show all tags
+git show-branch -a         //show tree format
+
+*************************************************
+Git trick to compare branch Sha1 values to zBuild client partlist.query version value=>
+
+Perform the following:
+
+1.) Git show-branch --sha1-name <branchName>
+This returns=>
+[<sha1_num>] <commit message>
+
+2.) Git cat-file -p <sha1_num>
+This returns a git commit object.
+The first line will be in this format=>
+tree <sha1_num>
+
+3.) Git cat-file -p <sha1_num> >output.txt
+This returns a git tree object.
+The general format will look like this (I don't know what 100644 means)=>
+100644 blob <Sha1Value1> <partName1>
+100644 blob <Sha1Value2><partName2>
+100644 blob <Sha1Value3><partName3>
+...
+
+4. Attach the output.txt to the issue.
+
+The point here is that the output.txt will contain all the files for the branchName listed with their Sha1 values.
+These Sha1 values can be compared with the versions in the clients "parlist.query" file to determine if they match.
+
+***any subdirectories will show up as tree objects in the list instead of blob.
+Each of them can be traversed by using their Sha1 values to perform steps 2 - 4
+*******************************************
